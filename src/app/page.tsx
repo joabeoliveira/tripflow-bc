@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { TripEvent, TripNote } from "@/types/trip";
+import WeatherBadge from "@/components/WeatherBadge";
 import HighlightBanner from "@/components/HighlightBanner";
 import EventCard from "@/components/EventCard";
 import EventModal from "@/components/EventModal";
@@ -652,7 +653,7 @@ export default function TripFlowHomePage() {
                   Selecione o Dia do Roteiro
                 </h2>
                 <span className="text-xs text-[#208494] font-semibold">
-                  {selectedDayMeta.short} • {selectedDayMeta.fullWeekday}
+                  {selectedDayMeta.short} • {selectedDayMeta.fullWeekday} <WeatherBadge date={selectedDate} />
                 </span>
               </div>
 

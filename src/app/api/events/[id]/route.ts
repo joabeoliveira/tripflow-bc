@@ -54,6 +54,11 @@ async function handleUpdate(
     if (body.title !== undefined) updateData.title = body.title;
     if (body.location !== undefined)
       updateData.location = body.location || null;
+    for (const key of ["costEstimated", "costReal"]) {
+      if (body[key] !== undefined) updateData[key] = body[key] == null ? null : Number(body[key]);
+    }
+    if (body.paidBy !== undefined) updateData.paidBy = body.paidBy || null;
+    if (body.attachments !== undefined) updateData.attachments = Array.isArray(body.attachments) ? JSON.stringify(body.attachments) : body.attachments || null;
     if (body.details !== undefined) updateData.details = body.details;
     if (body.category !== undefined) updateData.category = body.category;
     if (body.completed !== undefined)

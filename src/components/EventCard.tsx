@@ -16,8 +16,11 @@ import {
   Trash2,
   ExternalLink,
   Calendar,
+  Car,
+  Paperclip,
 } from "lucide-react";
 import { TripEvent } from "@/types/trip";
+import { getGoogleCalendarLink, getUberDeepLink, parseAttachments } from "@/utils/tripLinks";
 
 interface EventCardProps {
   event: TripEvent;
@@ -91,6 +94,8 @@ export default function EventCard({
         `${event.location} Balneário Camboriú SC`
       )}`
     : null;
+  const uberUrl = event.location ? getUberDeepLink(`${event.location} Balneário Camboriú SC`, event.title) : null;
+  const attachments = parseAttachments(event.attachments);
 
   return (
     <div className="relative pl-6 sm:pl-7 group">
@@ -212,6 +217,19 @@ export default function EventCard({
           </div>
 
           <div className="flex items-center gap-1.5 shrink-0">
+            {uberUrl && (event.category === "Transporte" || event.location) && (
+              <a href={uberUrl} target="_blank" rel="noopener noreferrer" className="min-h-[44px] px-3 rounded-xl bg-[#0B8494]/20 text-[#4fd1c5] border border-[#0B8494]/40 inline-flex items-center gap-1.5 text-xs font-medium" title="Pedir Uber">
+                <Car className="w-4 h-4" /><span className="hidden sm:inline">Pedir Uber</span>
+              </a>
+            )}
+            <a href={getGoogleCalendarLink(event)} target="_blank" rel="noopener noreferrer" className="min-h-[44px] min-w-[44px] px-3 rounded-xl bg-[#121212] text-[#9CA3AF] border border-[#2e2e2e] inline-flex items-center justify-center gap-1.5 text-xs font-medium" title="Adicionar à Agenda">
+              <Calendar className="w-4 h-4" /><span className="hidden sm:inline">Agenda</span>
+            </a>
+            {attachments.map((attachment) => (
+              <a key={attachment.url} href={attachment.url} target="_blank" rel="noopener noreferrer" className="min-h-[44px] px-3 rounded-xl bg-[#121212] text-[#9CA3AF] border border-[#2e2e2e] inline-flex items-center gap-1.5 text-xs font-medium" title={attachment.name}>
+                <Paperclip className="w-4 h-4" /><span className="hidden sm:inline">Documento</span>
+              </a>
+            ))}
             <button
               type="button"
               onClick={() => onEdit(event)}

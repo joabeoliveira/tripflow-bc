@@ -20,8 +20,18 @@ export interface TripEvent {
   details: string;
   category: string;
   completed: boolean;
+  costEstimated?: number | null;
+  costReal?: number | null;
+  paidBy?: string | null;
+  attachments?: Attachment[];
   createdAt?: string;
   updatedAt?: string;
+}
+
+export interface Attachment {
+  name: string;
+  url: string;
+  type: "pdf" | "image" | "link";
 }
 
 export interface TripNote {
@@ -30,6 +40,7 @@ export interface TripNote {
   content: string;
   category: string; // "Checklist" | "Dica" | "Transfer/Uber"
   done: boolean;
+  attachments?: Attachment[];
   createdAt?: string;
 }
 

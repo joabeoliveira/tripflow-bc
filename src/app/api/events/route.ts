@@ -215,6 +215,10 @@ export async function POST(request: NextRequest) {
       details,
       category,
       completed,
+      costEstimated,
+      costReal,
+      paidBy,
+      attachments,
     } = body;
 
     if (!date || !title || !period || !category || !details) {
@@ -236,6 +240,10 @@ export async function POST(request: NextRequest) {
         details,
         category,
         completed: Boolean(completed),
+        costEstimated: costEstimated == null ? null : Number(costEstimated),
+        costReal: costReal == null ? null : Number(costReal),
+        paidBy: paidBy || null,
+        attachments: Array.isArray(attachments) ? JSON.stringify(attachments) : attachments || null,
       },
     });
 
