@@ -94,7 +94,8 @@ export default function EventCard({
         `${event.location} Balneário Camboriú SC`
       )}`
     : null;
-  const uberUrl = event.location ? getUberDeepLink(`${event.location} Balneário Camboriú SC`, event.title) : null;
+  const destination = event.location?.trim();
+  const uberUrl = destination ? getUberDeepLink(`${destination} Balneário Camboriú SC`, event.title) : null;
   const attachments = parseAttachments(event.attachments);
 
   return (
@@ -216,8 +217,8 @@ export default function EventCard({
             )}
           </div>
 
-          <div className="flex items-center gap-1.5 shrink-0">
-            {uberUrl && (event.category === "Transporte" || event.location) && (
+          <div className="flex flex-wrap items-center justify-end gap-1.5 w-full sm:w-auto sm:shrink-0">
+            {uberUrl && (
               <a href={uberUrl} target="_blank" rel="noopener noreferrer" className="min-h-[44px] px-3 rounded-xl bg-[#0B8494]/20 text-[#4fd1c5] border border-[#0B8494]/40 inline-flex items-center gap-1.5 text-xs font-medium" title="Pedir Uber">
                 <Car className="w-4 h-4" /><span className="hidden sm:inline">Pedir Uber</span>
               </a>
